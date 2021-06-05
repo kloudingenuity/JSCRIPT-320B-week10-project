@@ -77,10 +77,10 @@ export default function RecipeList() {
         setLoading(true);
         setData(RecipeData);        
         setcurrentPageContent(RecipeData.hits.slice(0, 12));
-        setCount(Math.ceil(data.to/12));
+        setCount(Math.ceil(RecipeData.to/12));
 
-        const h = (healthKey.length > 0) && `&health=${healthKey.join("&")}` || '';
-        const d = dietKey && `&diet=${dietKey}` || '';debugger;
+        const h = (healthKey.length > 0) ? `&health=${healthKey.join("&")}` : '';
+        const d = dietKey ? `&diet=${dietKey}` : '';
         // if(searchKey)
         //     fetch(`https://api.edamam.com/search?app_id=${config.appId}&app_key=${config.appKey}&q=${searchKey}${h}${d}&from=0&to=100`)
         //         .then(response => response.json())

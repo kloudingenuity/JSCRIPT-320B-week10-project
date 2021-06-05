@@ -12,13 +12,13 @@ export default function RecipeDetails(props) {
 
     const ingredients = cardDetails.recipe.ingredientLines.map((item, index) => {
         return(
-            <li>{item}</li>
+            <li key={index}>{item}</li>
         );
     });
 
-    const totalNutrients = Object.keys(cardDetails.recipe.totalNutrients).map((key) => {
+    const totalNutrients = Object.keys(cardDetails.recipe.totalNutrients).map((key, index) => {
         return(
-            <tr>
+            <tr key={index}>
                 <td>{cardDetails.recipe.totalNutrients[key].label}</td>
                 <td>{cardDetails.recipe.totalDaily[key] ? `${(cardDetails.recipe.totalDaily[key].quantity).toFixed(2)} ${cardDetails.recipe.totalDaily[key].unit}` : ''}</td>
                 <td>{(cardDetails.recipe.totalNutrients[key].quantity).toFixed(2)}{cardDetails.recipe.totalNutrients[key].unit}</td>
