@@ -47,22 +47,22 @@
    "dietmeal":[
       {
          "title":"Balanced",
-         "image":"./images/breakfast.jpg",
+         "image":"./images/balanced.jpg",
          "query":"balanced"
       },
       {
          "title":"High-Protein",
-         "image":"./images/lunch.jpg",
+         "image":"./images/high-protein.jpg",
          "query":"high-protein"
       },
       {
          "title":"Low-Carb",
-         "image":"./images/dinner.jpg",
+         "image":"./images/low-carb.jpg",
          "query":"low-card"
       },
       {
          "title":"Low-Fat",
-         "image":"./images/desserts.jpg",
+         "image":"./images/low-fat.jpg",
          "query":"low-fat"
       }
    ],
