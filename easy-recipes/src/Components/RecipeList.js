@@ -70,8 +70,8 @@ export default function RecipeList() {
 
     useEffect(() => {  
         var config = {
-            appId: "",
-            appKey: ""
+            appId: "7fa0e9a0",
+            appKey: "292eb66a5e30c1091c5eb80377ca630b"
         };  
 
         const h = (healthKey.length > 0) ? `&health=${healthKey.join("&")}` : '';
@@ -150,7 +150,7 @@ export default function RecipeList() {
                                                     ) : (
                                                         <CardMedia className='recipeCard__image'
                                                             component="img"
-                                                            alt="Contemplative Reptile"
+                                                            alt={item.recipe.label}
                                                             
                                                             image={item.recipe.image}
                                                             title={item.recipe.label}
