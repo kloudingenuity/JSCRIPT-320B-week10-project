@@ -76,7 +76,6 @@ export default function RecipeList() {
 
         const h = (healthKey.length > 0) ? `&health=${healthKey.join("&")}` : '';
         const d = dietKey ? `&diet=${dietKey}` : '';
-        let httpStatus = 0;
 
         if(searchKey && search){  
             setLoading(true);
