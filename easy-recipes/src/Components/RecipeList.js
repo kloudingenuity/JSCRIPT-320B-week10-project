@@ -76,30 +76,31 @@ export default function RecipeList() {
 
         const h = (healthKey.length > 0) ? `&health=${healthKey.join("&")}` : '';
         const d = dietKey ? `&diet=${dietKey}` : '';
+        let httpStatus = 0;
 
-        setLoading(true);
-
-        if(searchKey && search)  
-            fetch(`https://api.edamam.com/search?app_id=${config.appId}&app_key=${config.appKey}&q=${searchKey}${h}${d}&from=0&to=100`)
+        if(searchKey && search){  
+            setLoading(true);
+            fetch(`https://api.edamam.com/search?app_id=${config.appId}&app_key=${config.appKey}&q=${searchKey}${h.toLowerCase()}${d.toLowerCase()}&from=0&to=100`)
                 .then(response => response.json())
                 .then(data => {
                     setData(data);        
                     setcurrentPageContent(data.hits.slice(0, 12));
                     setCount(Math.ceil(data.to/12));
                 })
-                .catch(() => {
+                .catch((e) => {
+                    console.log(e);
                     
                 });   
-                        
+            setSearch(false);
+        }   
         const timer = setTimeout(() => {
             setLoading(false);
         }, 1000);
-
-        setSearch(false);           
+                
         window.scrollTo(0, 0);
         
         return () => clearTimeout(timer);
-     }, [search, searchKey]);
+     }, [search, searchKey, healthKey, dietKey]);
 
     const healthLabels = [
         { label: 'Vegan', key: "vegan", description: "No meat, poultry, fish, dairy, eggs or honey" },
