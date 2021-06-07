@@ -13,7 +13,7 @@ export default function Home() {
                         <a className="button--cta button--regular" href="/search">Search Recipes</a>
                     </div>
                     <div className="home__hero--image" style={{opacity: "1", transform: "translateX(0%)"}}>
-                        <img alt="Plate with food" src="./images/hero-min.1cdd2a32.jpeg " />
+                        <img alt="Plate with food" style={{maxWidth:'80%'}} src="./images/hero-min.1cdd2a32.jpeg " />
                     </div>
                 </article>
                 <article className="home__about container container--withPadding">

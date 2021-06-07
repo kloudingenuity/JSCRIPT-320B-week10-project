@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory, useLocation } from 'react-router';
-import RecipeData from '../Assets/data/recipes.json';
+import { useParams, useHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardMedia, CardContent, Grid, TextField, Chip, Typography, CardActionArea } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
@@ -55,10 +54,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RecipeList() {
-    var config = {
-        appId: "7fa0e9a0",
-        appKey: "292eb66a5e30c1091c5eb80377ca630b"
-    };
     const classes = useStyles();
     const {query, health, diet} = useParams();
     const [searchKey, setQuery] = useState(query);
@@ -69,35 +64,42 @@ export default function RecipeList() {
     const [dietKey, setDietKey] = useState(diet);
     const [page, setPage] = useState(1);  
     const [count, setCount] = useState(0); 
+    const [search, setSearch] = useState(true);
 
     const history = useHistory();
-    //const searchKey = 'q=breakfast';
 
-    useEffect(() => {
-        setLoading(true);
-        setData(RecipeData);        
-        setcurrentPageContent(RecipeData.hits.slice(0, 12));
-        setCount(Math.ceil(RecipeData.to/12));
+    useEffect(() => {  
+        var config = {
+            appId: "",
+            appKey: ""
+        };  
 
         const h = (healthKey.length > 0) ? `&health=${healthKey.join("&")}` : '';
         const d = dietKey ? `&diet=${dietKey}` : '';
-        // if(searchKey)
-        //     fetch(`https://api.edamam.com/search?app_id=${config.appId}&app_key=${config.appKey}&q=${searchKey}${h}${d}&from=0&to=100`)
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             setData(data);        
-        //             setcurrentPageContent(data.hits.slice(0, 12));
-        //             setCount(Math.ceil(data.to/12));
-        //         })
-        //         .then(() => {
-        //             setLoading(false);
-        //         })
-        //         .catch(() => {
+
+        setLoading(true);
+
+        if(searchKey && search)  
+            fetch(`https://api.edamam.com/search?app_id=${config.appId}&app_key=${config.appKey}&q=${searchKey}${h}${d}&from=0&to=100`)
+                .then(response => response.json())
+                .then(data => {
+                    setData(data);        
+                    setcurrentPageContent(data.hits.slice(0, 12));
+                    setCount(Math.ceil(data.to/12));
+                })
+                .catch(() => {
                     
-        //         });                 
-      window.scrollTo(0, 0);
-      setLoading(false);
-     }, [searchKey, healthKey, dietKey]);
+                });   
+                        
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+
+        setSearch(false);           
+        window.scrollTo(0, 0);
+        
+        return () => clearTimeout(timer);
+     }, [search, searchKey]);
 
     const healthLabels = [
         { label: 'Vegan', key: "vegan", description: "No meat, poultry, fish, dairy, eggs or honey" },
@@ -128,9 +130,7 @@ export default function RecipeList() {
 
     const onSearchClick = (e) => {
         e.preventDefault();
-        const h = healthKey.length ? `${healthKey.join("&")}` : "";
-        const d = dietKey ? `${dietKey}` : "";
-        history.push(`/recipelist/${searchKey}/${h}/${d}`);
+        setSearch(true);
     }
     
     const handlePageChange = (event, value) => {
@@ -194,7 +194,7 @@ export default function RecipeList() {
                                 multiple
                                 id="health-tags-filled"
                                 options={healthLabels.map((option) => option.label)}   
-                                defaultValue={healthKey}                          
+                                                       
                                 freeSolo
                                 renderTags={(value, getTagProps) =>
                                 value.map((option, index) => (
@@ -211,7 +211,7 @@ export default function RecipeList() {
                                 onChange={(e, value) => setDietKey(value)}                                
                                 id="diet-tags-filled"
                                 options={dietLabels.map((option) => option.label)}    
-                                defaultValue={dietKey ? dietKey : ''}                             
+                                                             
                                 freeSolo
                                 renderTags={(value, getTagProps) =>
                                 value.map((option, index) => (

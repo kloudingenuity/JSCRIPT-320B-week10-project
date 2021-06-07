@@ -73,7 +73,7 @@ export default function RecipeCard(props) {
             ) : (
               <CardMedia
                   component="img"
-                  alt="Contemplative Reptile"
+                  alt={props.card.title}
                   height="140"
                   image={props.card.image}
                   title={props.card.title} />
