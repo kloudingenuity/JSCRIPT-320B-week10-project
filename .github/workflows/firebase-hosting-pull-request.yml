@@ -16,3 +16,4 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSCRIPT_320B_PROJECT }}'
           projectId: jscript-320b-project
+          entryPoint: './easy-recipes'
