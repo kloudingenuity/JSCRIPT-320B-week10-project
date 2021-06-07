@@ -21,7 +21,7 @@ export default function RecipeDetails(props) {
             <tr key={index}>
                 <td>{cardDetails.recipe.totalNutrients[key].label}</td>
                 <td>{cardDetails.recipe.totalDaily[key] ? `${(cardDetails.recipe.totalDaily[key].quantity).toFixed(2)} ${cardDetails.recipe.totalDaily[key].unit}` : ''}</td>
-                <td>{(cardDetails.recipe.totalNutrients[key].quantity).toFixed(2)}{cardDetails.recipe.totalNutrients[key].unit}</td>
+                <td>{(cardDetails.recipe.totalNutrients[key].quantity).toFixed(2)} {cardDetails.recipe.totalNutrients[key].unit}</td>
             </tr>
         );
     });
